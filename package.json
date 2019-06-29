@@ -9,6 +9,7 @@
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
+    "pm2": "^3.5.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
@@ -19,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pm2:start":"pm2 start admin-server.js",
+    "pm2:stop":"pm2 stop admin-server.js"
   },
   "eslintConfig": {
     "extends": "react-app"

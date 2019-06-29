@@ -16,6 +16,6 @@ app.use(Static(__dirname + '/build'))
 app.use(route.routes())
 .use(route.allowedMethods())
 
-app.listen('4000')
+app.listen('6789')
 
-console.log("App start at port 4000")
+console.log("App start at port 6789")
