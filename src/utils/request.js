@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const request = axios.create({
-    baseURL:'http://127.0.0.1:7001'
+    baseURL:'http://ec2-18-218-40-213.us-east-2.compute.amazonaws.com:7001'
 })
 
 
