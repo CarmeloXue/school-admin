@@ -1,16 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import { login } from '../api';
 
 
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        login({wechatId:values.username,password:values.password})
+
+        try{
+            const res = await login({wechatId:values.username,password:values.password})
+            console.log(res)
+            sessionStorage.setItem('token',res.data.token)
+            await message.success('登陆成功',1.5)
+            this.props.history.push('/list')
+        } catch (err){
+            message.error('登录失败',1.5)
+        }
       }
     });
   };

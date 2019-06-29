@@ -6,6 +6,8 @@ import {
     Input,
     Button,
     Icon,
+    message,
+    Divider
 } from 'antd';
 import { register } from '../api';
 
@@ -14,11 +16,18 @@ const { Option } = Select;
 class Register extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                register(values)
+                try{
+                    const res = await register(values)
+                    console.log(res)
+                    await message.success('注册成功,即将回到登录页',1.5)
+                    this.props.history.push('/login')
+                } catch(err){
+                    await message.success('注册失败',1.5)
 
+                }
             }
         });
     };
@@ -107,11 +116,12 @@ class Register extends React.Component {
 
                     <Form.Item wrapperCol={{ span: 24 }}>
                         <Button type="primary" htmlType="submit">
-                            Submit
+                            确认
                         </Button>
+                        <Divider type="vertical"/>
 
                         <Button type="danger" htmlType="submit" >
-                            <Link to="/login">Back</Link>
+                            <Link to="/login">返回登录</Link>
                         </Button>
                     </Form.Item>
 

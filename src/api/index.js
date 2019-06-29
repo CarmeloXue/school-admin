@@ -1,29 +1,38 @@
 import request from '../utils/request'
-import { message } from 'antd';
 
 
-export const login = async ({wechatId,password})=>{
-
-    try{
-        const res = await request.post('/login',{wechatId,password})
-        message.success("登录成功",1)
-        console.log(res)
-    } catch (err){
-        console.log(err)
-        message.error("登录失败")
-    }
-    
+export const login = ({ wechatId, password }) => {
+    return request.post('/login', { wechatId, password })
 }
 
-export const register = async (data)=>{
-    try{
-        const res = await request.post('/user',{...data})
-        message.success("创建成功",1)
+export const register = async (data) => {
+    return request.post('/user', { ...data })
+}
 
-        console.log(res)
-    } catch (err){
-        message.error("创建失败")
+export const queryGoods = ({pageIndex,pageSize,order})=>{
+    return request.get('/goods',{
+        params:{
+            pageIndex,
+            pageSize,
+            order
+        },headers:{
+            'Authorization':sessionStorage.getItem('token')
+        }
+    })
+}
 
-        console.log(err)
-    }
+export const uploadImage=(file,fileName)=>{
+
+    const formData = new FormData()
+    formData.append(fileName,file)
+
+    return request.post("/images",formData)
+}
+
+export const createGoods = goods =>{
+    return request.post("/goods",goods, {
+        headers:{
+            'Authorization':sessionStorage.getItem('token')
+        }
+    })
 }
